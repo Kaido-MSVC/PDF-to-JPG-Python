@@ -7,6 +7,7 @@ datas = collect_data_files('customtkinter') + [
     (str(root / 'assets'), 'assets'),
     (str(root / 'LICENSE'), '.'),
     (str(root / 'THIRD-PARTY-NOTICES.md'), '.'),
+    (str(root / 'licenses'), 'licenses'),
 ]
 binaries = collect_dynamic_libs('pymupdf')
 a = Analysis(

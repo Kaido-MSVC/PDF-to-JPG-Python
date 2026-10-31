@@ -358,12 +358,17 @@ class App(ctk.CTk):
                  '釋出；您可以依該授權條款重新散布或修改本程式。\n\n'
                  '本程式不提供任何擔保，亦不含適售性或特定用途適用性之默示擔保。'
                  '詳見「授權全文」分頁。\n\n'
-                 '取得本程式時，您有權一併取得對應的完整原始碼；請向散布者或作者索取。\n\n'
-                 '本程式內含 PyMuPDF / MuPDF（AGPL-3.0）、Pillow、CustomTkinter、Python、'
-                 'Tcl/Tk 與 PyInstaller bootloader，授權見「第三方元件」分頁。')
+                 '取得本程式時，您有權一併取得對應的完整原始碼：'
+                 f'對應原始碼包為 PDF-to-JPG-{VERSION}-source.zip（含程式、資源、授權檔、'
+                 '建置腳本與鎖定版本清單），應與本 EXE 在同一位置提供。'
+                 '若未一併取得，請向提供 EXE 給您的散布者索取。\n\n'
+                 '本程式內含 PyMuPDF / MuPDF（AGPL-3.0）、Pillow、CustomTkinter（含 Roboto 字型）、'
+                 'darkdetect、NumPy、packaging、psutil、PyYAML、Python、Tcl/Tk 與 '
+                 'PyInstaller bootloader，清單見「第三方元件」分頁，'
+                 '各元件授權全文附於該分頁下方及原始碼包的 licenses 資料夾。')
         for name, text in (('關於', about),
                            ('授權全文', self.read_bundled('LICENSE')),
-                           ('第三方元件', self.read_bundled('THIRD-PARTY-NOTICES.md'))):
+                           ('第三方元件', self.read_third_party())):
             tab = tabs.add(name)
             tab.grid_columnconfigure(0, weight=1)
             tab.grid_rowconfigure(0, weight=1)
@@ -382,6 +387,22 @@ class App(ctk.CTk):
             return (BASE / name).read_text(encoding='utf8')
         except OSError as exc:
             return f'找不到 {name}：{exc}\n授權為 {LICENSE_NAME}，全文見 https://www.gnu.org/licenses/agpl-3.0.html'
+
+    @classmethod
+    def read_third_party(cls):
+        parts = [cls.read_bundled('THIRD-PARTY-NOTICES.md')]
+        root = BASE / 'licenses'
+        files = sorted(p for p in root.rglob('*') if p.is_file()) if root.is_dir() else []
+        if not files:
+            parts.append(f'找不到隨附的授權全文資料夾：{root}')
+        for path in files:
+            rel = path.relative_to(root).as_posix()
+            try:
+                text = path.read_text(encoding='utf8', errors='replace')
+            except OSError as exc:
+                text = f'無法讀取：{exc}'
+            parts.append(f'{"=" * 72}\nlicenses/{rel}\n{"=" * 72}\n{text}')
+        return '\n\n'.join(parts)
 
     def open_output(self):
         try:
