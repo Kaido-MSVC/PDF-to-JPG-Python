@@ -18,7 +18,7 @@ PDF to JPG 由 Kaido-MSVC 以 GNU AGPL-3.0-or-later 釋出（見 `LICENSE`）。
 | psutil | 7.2.2 | BSD-3-Clause | `licenses\psutil-7.2.2\LICENSE` | https://github.com/giampaolo/psutil |
 | PyYAML | 6.0.3 | MIT | `licenses\PyYAML-6.0.3\LICENSE` | https://github.com/yaml/pyyaml |
 | Python（含 OpenSSL、libffi、bzip2、zlib 等內附函式庫及 MSVC 執行階段條款） | 3.13.17 | PSF License 及檔內所列各授權 | `licenses\Python-3.13.17\LICENSE.txt` | https://www.python.org/ |
-| Microsoft Visual C++ 執行階段（`VCRUNTIME140.dll`、`VCRUNTIME140_1.dll` 隨 Python；`MSVCP140.dll` 供 PyMuPDF 使用） | 14.x | Microsoft Distributable Code 條款（見 Python LICENSE.txt 的 “Additional Conditions for this Windows binary build”） | `licenses\Python-3.13.17\LICENSE.txt` | https://learn.microsoft.com/cpp/windows/redistributing-visual-cpp-files |
+| Microsoft Visual C++ 執行階段（`VCRUNTIME140.dll`、`VCRUNTIME140_1.dll` 隨 Python；`MSVCP140.dll` 供 PyMuPDF 使用） | 14.x；`MSVCP140.dll` 為 14.51.36231 | Microsoft 專有軟體，屬 Microsoft Distributable Code，**不適用 AGPL**；接收者條款見下節 | 下節；`licenses\Python-3.13.17\LICENSE.txt` 的 “Additional Conditions for this Windows binary build” | https://learn.microsoft.com/cpp/windows/redistributing-visual-cpp-files |
 | Tcl/Tk | 8.6 | Tcl/Tk License（BSD 類） | `licenses\Tcl-Tk-8.6\license.terms` | https://www.tcl-lang.org/ |
 | PyInstaller bootloader | 6.22.3 | GPL-2.0-or-later，附 bootloader 例外 | `licenses\PyInstaller-6.22.3\COPYING.txt` | https://pyinstaller.org/ |
 
@@ -60,6 +60,35 @@ curl、freeglut、OpenSSL 未編入，故未列出。
 
 - Portions of this software are copyright © 1996-2026 The FreeType Project (https://freetype.org). All rights reserved.
 - This software is based in part on the work of the Independent JPEG Group.
+
+## Microsoft Visual C++ 執行階段使用條款
+
+EXE 內含的 `MSVCP140.dll` 取自 Microsoft Visual Studio Community 2026（穩定通道）的
+`VC\Redist\MSVC\14.51.36231\x64\Microsoft.VC145.CRT`，未經修改，依
+Microsoft Software License Terms for Visual Studio Community 2026 第 5 節 “DISTRIBUTABLE CODE”
+及其 Distributable List（https://aka.ms/vs/18/redistribution）隨本程式散布。
+`VCRUNTIME140.dll`、`VCRUNTIME140_1.dll` 隨 Python 3.13 官方 Windows 版附帶，同屬 Microsoft Distributable Code。
+
+這些檔案（下稱「Microsoft 執行階段檔案」）的著作權屬於 Microsoft Corporation，
+不屬於本程式作者，也不在本程式 AGPL-3.0-or-later 授權範圍內；AGPL 賦予的修改與散布權利不及於這些檔案。
+使用、複製或轉發本程式，即表示你同意下列條款：
+
+1. Microsoft 執行階段檔案只能作為本程式的一部分使用，不得單獨抽出散布或用於其他用途。
+2. 不得修改 Microsoft 執行階段檔案，也不得進行反向工程、解編譯或反組譯，但適用法律明確允許者不在此限。
+3. Microsoft 執行階段檔案「依現狀」提供。Microsoft 不提供任何明示或默示擔保，
+   對於因使用所生的任何損害不負責任，亦不提供技術支援。
+4. 本程式並非由 Microsoft 製作或背書。
+5. 若你轉發本程式，必須連同本檔案一起提供，並要求你的接收者同意本節條款。
+
+English version: The Microsoft Visual C++ runtime files included in this program
+(`MSVCP140.dll`, `VCRUNTIME140.dll`, `VCRUNTIME140_1.dll`) are Microsoft Distributable Code,
+copyright Microsoft Corporation, and are not covered by this program's AGPL license.
+By using, copying or redistributing this program you agree that: (1) you use them only as part of
+this program; (2) you do not modify, reverse engineer, decompile or disassemble them, except to the
+extent applicable law expressly permits; (3) they are provided "as is" without warranties or support
+from Microsoft, and Microsoft is not liable for any damages; (4) this program is not made or endorsed
+by Microsoft; and (5) if you redistribute this program, you include this notice and require your
+recipients to agree to these terms.
 
 ## 原始碼
 

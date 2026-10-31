@@ -116,7 +116,8 @@ def attach_smoke_test(app, folder):
                                'licenses/Python-3.13.17/LICENSE.txt', 'licenses/Roboto/',
                                'licenses/MuPDF-1.28.5/thirdparty/freetype/FTL.TXT',
                                'licenses/MuPDF-1.28.5/fonts/noto/COPYING',
-                               'Independent JPEG Group'):
+                               'Independent JPEG Group',
+                               'Microsoft Visual C++ 執行階段使用條款'):
                     assert marker in third_party, f'missing bundled license: {marker}'
                 about.destroy()
                 report['checks'].append('about window + bundled license texts')

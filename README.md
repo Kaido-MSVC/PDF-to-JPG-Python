@@ -53,7 +53,7 @@ py -3.13 -m venv .venv
 .venv\Scripts\python.exe verify.py
 ```
 
-`build.ps1` 固定使用 `.venv`，先核對版本、執行測試，再建立單一 EXE。快取與中間檔保存在 `work`，成品在 `dist`。`requirements.txt` 記錄直接相依套件，`requirements-lock.txt` 為完整鎖定版本（含 PyMuPDF 2.0 連帶安裝的 onnxruntime 等，封裝時已排除）；建置程式不會自動安裝套件。
+`build.ps1` 固定使用 `.venv`，先核對版本、執行測試，再建立單一 EXE。建置需要 Visual Studio 2026（含「使用 C++ 的桌面開發」工作負載）：`MSVCP140.dll` 依其授權取自 `VC\Redist\MSVC\14.51.36231\x64\Microsoft.VC145.CRT`，版本與 SHA-256 固定在 `PDF-to-JPG.spec`，找不到或不符時建置中止。快取與中間檔保存在 `work`，成品在 `dist`。`requirements.txt` 記錄直接相依套件，`requirements-lock.txt` 為完整鎖定版本（含 PyMuPDF 2.0 連帶安裝的 onnxruntime 等，封裝時已排除）；建置程式不會自動安裝套件。
 
 `verify.py` 會建立獨立測試資料夾，執行核心與實際 GUI 測試，將 EXE 複製到中文日文路徑，使用不含 Python 的子程序 PATH 啟動它，並檢查 EXE 圖示及版本資源。報告與深淺色截圖存於 `work\verify-日期時間`。
 
@@ -90,6 +90,8 @@ EXE 內含 AGPL-3.0 的 PyMuPDF / MuPDF。轉發 EXE 時，不論分享對象多
 3. 將 EXE 與上列四個檔案放在同一個分享位置（同一資料夾、同一封郵件或同一個下載頁）一併提供，不要只附連結或只給 EXE。
 
 其他非 copyleft 第三方套件的原始碼可依 `requirements-lock.txt` 的版本由 PyPI 或 `THIRD-PARTY-NOTICES.md` 所列網址取得。
+
+EXE 內含 Microsoft Visual C++ 執行階段檔案（`MSVCP140.dll` 等）。這些檔案是 Microsoft 的 Distributable Code，不適用 AGPL；收到 EXE 的人使用或轉發時須遵守 `THIRD-PARTY-NOTICES.md`「Microsoft Visual C++ 執行階段使用條款」，轉發時要連同該條款一併提供。依 Visual Studio 授權，散布者須為因散布本程式而對 Microsoft 提出的索賠負責（僅基於未修改之 Microsoft 檔案本身的索賠除外）。
 
 ## 授權
 
