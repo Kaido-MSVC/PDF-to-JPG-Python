@@ -93,12 +93,25 @@ def attach_smoke_test(app, folder):
                 app.set_theme('深色')
                 app.theme.set('深色')
                 state['phase'] = 'dark'
+                state['dark_at'] = time.monotonic()
+            elif state['phase'] == 'dark' and time.monotonic() - state['dark_at'] < 1.5:
+                pass  # CustomTkinter redraws all widgets after a theme switch; let it finish.
             elif state['phase'] == 'dark':
                 screenshot('dark.png')
                 hwnd = ctypes.windll.user32.GetParent(app.winfo_id())
                 native_icon = ctypes.windll.user32.SendMessageW(hwnd, 0x007F, 1, 0)
                 assert native_icon, 'missing native window icon'
                 report['checks'].append('window icon loaded')
+                app.about_button.invoke()
+                app.update()
+                about = app.about_window
+                assert about is not None and about.winfo_exists(), 'about window missing'
+                about.update_idletasks()
+                ImageGrab.grab(window=ctypes.windll.user32.GetParent(about.winfo_id())).save(folder / 'about.png')
+                assert 'GNU AFFERO GENERAL PUBLIC LICENSE' in app.read_bundled('LICENSE')
+                assert 'PyMuPDF' in app.read_bundled('THIRD-PARTY-NOTICES.md')
+                about.destroy()
+                report['checks'].append('about window + bundled license texts')
                 app.clear_files()
                 app.add_paths([long_pdf])
                 app.dpi.set('300')

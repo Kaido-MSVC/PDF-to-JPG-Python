@@ -79,4 +79,4 @@ py -3.13 -m venv .venv
 
 Copyright (C) 2026 Kaido-MSVC
 
-本程式以 [GNU Affero General Public License v3.0 或更新版本](LICENSE) 釋出。因內含 PyMuPDF（AGPL-3.0），轉發 EXE 時應一併提供或註明原始碼取得方式。第三方元件授權見 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)；兩份檔案也已內嵌於 EXE。
+本程式以 [GNU Affero General Public License v3.0 或更新版本](LICENSE) 釋出。因內含 PyMuPDF（AGPL-3.0），轉發 EXE 時應一併提供或註明原始碼取得方式。第三方元件授權見 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)；兩份檔案也已內嵌於 EXE，可在程式右上角「關於」視窗的「授權全文」與「第三方元件」分頁檢視。

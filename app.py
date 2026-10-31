@@ -14,6 +14,8 @@ import customtkinter as ctk
 from converter import DPI_CHOICES, Settings, convert_batch
 
 VERSION = '1.0.0'
+AUTHOR = 'Kaido-MSVC'
+LICENSE_NAME = 'GNU AGPL-3.0-or-later'
 BASE = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
 HOME = Path(sys.executable).parent if getattr(sys, 'frozen', False) else Path(__file__).resolve().parent
 
@@ -61,8 +63,12 @@ class App(ctk.CTk):
                    text_color=('#526176', '#A7B5CA')).grid(row=1, column=0, sticky='w')
         self.theme = ctk.CTkOptionMenu(header, values=['系統', '淺色', '深色'],
                                      command=self.set_theme, width=106, font=(self.font, 13))
-        self.theme.grid(row=0, column=1, rowspan=2)
+        self.theme.grid(row=0, column=2, rowspan=2)
         self.theme.set('系統')
+        self.about_button = ctk.CTkButton(header, text='關於', command=self.show_about, width=70,
+                                          font=(self.font, 13), fg_color=('#536680', '#41516A'))
+        self.about_button.grid(row=0, column=1, rowspan=2, padx=(0, 8))
+        self.about_window = None
 
         card = ctk.CTkFrame(self, corner_radius=14)
         card.grid(row=1, column=0, padx=28, pady=(0, 12), sticky='nsew')
@@ -330,6 +336,52 @@ class App(ctk.CTk):
             self.cancel_job()
         else:
             self.destroy()
+
+    def show_about(self):
+        if self.about_window is not None and self.about_window.winfo_exists():
+            self.about_window.focus()
+            return
+        window = self.about_window = ctk.CTkToplevel(self)
+        window.title('關於 PDF to JPG')
+        window.geometry('720x560')
+        window.minsize(560, 420)
+        window.transient(self)
+        # CTkToplevel resets its icon shortly after creation; set ours afterwards.
+        window.after(250, lambda: window.iconbitmap(str(BASE / 'assets' / 'app.ico')))
+        window.grid_columnconfigure(0, weight=1)
+        window.grid_rowconfigure(0, weight=1)
+        tabs = ctk.CTkTabview(window)
+        tabs.grid(row=0, column=0, sticky='nsew', padx=16, pady=(8, 0))
+        about = (f'PDF to JPG  v{VERSION}\n'
+                 f'Copyright (C) 2026 {AUTHOR}\n\n'
+                 f'本程式為自由軟體，依 {LICENSE_NAME}（GNU Affero 通用公共授權條款第 3 版或更新版本）'
+                 '釋出；您可以依該授權條款重新散布或修改本程式。\n\n'
+                 '本程式不提供任何擔保，亦不含適售性或特定用途適用性之默示擔保。'
+                 '詳見「授權全文」分頁。\n\n'
+                 '取得本程式時，您有權一併取得對應的完整原始碼；請向散布者或作者索取。\n\n'
+                 '本程式內含 PyMuPDF / MuPDF（AGPL-3.0）、Pillow、CustomTkinter、Python、'
+                 'Tcl/Tk 與 PyInstaller bootloader，授權見「第三方元件」分頁。')
+        for name, text in (('關於', about),
+                           ('授權全文', self.read_bundled('LICENSE')),
+                           ('第三方元件', self.read_bundled('THIRD-PARTY-NOTICES.md'))):
+            tab = tabs.add(name)
+            tab.grid_columnconfigure(0, weight=1)
+            tab.grid_rowconfigure(0, weight=1)
+            box = ctk.CTkTextbox(tab, font=(self.font if name != '授權全文' else 'Consolas', 12),
+                                 wrap='word')
+            box.grid(row=0, column=0, sticky='nsew')
+            box.insert('1.0', text)
+            box.configure(state='disabled')
+        ctk.CTkButton(window, text='關閉', command=window.destroy, width=100,
+                      font=(self.font, 14)).grid(row=1, column=0, sticky='e', padx=16, pady=12)
+        window.after(50, window.focus)
+
+    @staticmethod
+    def read_bundled(name):
+        try:
+            return (BASE / name).read_text(encoding='utf8')
+        except OSError as exc:
+            return f'找不到 {name}：{exc}\n授權為 {LICENSE_NAME}，全文見 https://www.gnu.org/licenses/agpl-3.0.html'
 
     def open_output(self):
         try:
