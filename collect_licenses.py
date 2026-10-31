@@ -1,6 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Copyright (C) 2026 Kaido-MSVC
-"""Copy the license files of every bundled third-party component into ./licenses.
+"""Copy the license files of every bundled Python-side component into ./licenses.
+
+MuPDF's own bundled libraries/fonts are in licenses\\MuPDF-<version>, copied
+verbatim from the MuPDF source release; this script leaves that folder alone.
 
 Run with the project's .venv:  .venv\\Scripts\\python.exe collect_licenses.py
 The result is committed and embedded in the EXE (see PDF-to-JPG.spec).
@@ -47,8 +50,11 @@ def copy(src, dst):
 
 
 def main():
-    if OUT.exists():
-        shutil.rmtree(OUT)
+    # licenses\MuPDF-* is copied from the MuPDF source release (see its
+    # PROVENANCE.md), not from .venv, so keep it.
+    for old in OUT.glob('*'):
+        if old.is_dir() and not old.name.startswith('MuPDF-'):
+            shutil.rmtree(old)
     for dist_name, folder in PACKAGES.items():
         dist = md.distribution(dist_name)
         found = list(license_files(dist))

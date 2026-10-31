@@ -113,7 +113,10 @@ def attach_smoke_test(app, folder):
                 third_party = app.read_third_party()
                 for marker in ('licenses/CustomTkinter-6.0.0/LICENSE', 'Tom Schimansky',
                                'licenses/Pillow-13.0.0/LICENSE', 'licenses/darkdetect-0.8.0/LICENSE',
-                               'licenses/Python-3.13.17/LICENSE.txt', 'licenses/Roboto/'):
+                               'licenses/Python-3.13.17/LICENSE.txt', 'licenses/Roboto/',
+                               'licenses/MuPDF-1.28.5/thirdparty/freetype/FTL.TXT',
+                               'licenses/MuPDF-1.28.5/fonts/noto/COPYING',
+                               'Independent JPEG Group'):
                     assert marker in third_party, f'missing bundled license: {marker}'
                 about.destroy()
                 report['checks'].append('about window + bundled license texts')
