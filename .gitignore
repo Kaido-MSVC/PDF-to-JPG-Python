@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Build output and test/verification artifacts
+dist/
+work/
+build/
+
+# Editors / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
