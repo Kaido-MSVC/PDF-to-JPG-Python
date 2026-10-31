@@ -62,7 +62,8 @@ $lines = foreach ($f in $files) {
     "$h *$f"
 }
 $sums = Join-Path 'dist' 'SHA256SUMS.txt'
-[IO.File]::WriteAllText((Join-Path $PSScriptRoot $sums), (($lines -join "`r`n") + "`r`n"))
+# LF line endings so both `sha256sum -c` (Git Bash) and PowerShell can read it.
+[IO.File]::WriteAllText((Join-Path $PSScriptRoot $sums), (($lines -join "`n") + "`n"))
 Write-Host "Commit: $(git rev-parse HEAD)"
 Get-Content -LiteralPath $sums
 Write-Host 'Share all files listed above together, in the same place.'

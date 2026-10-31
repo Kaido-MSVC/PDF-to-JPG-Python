@@ -24,6 +24,12 @@ a = Analysis(
               'scipy', 'IPython', 'pytest', 'cv2'],
     noarchive=False,
 )
+# The Universal CRT (ucrtbase.dll, api-ms-win-*.dll) is part of Windows 10/11.
+# PyInstaller would copy it from C:\Windows\System32, which are OS files without
+# a redistribution grant, so leave it to the OS.
+a.binaries = [b for b in a.binaries
+              if not (Path(b[0]).name.lower() == 'ucrtbase.dll'
+                      or Path(b[0]).name.lower().startswith('api-ms-win-'))]
 pyz = PYZ(a.pure)
 exe = EXE(
     pyz, a.scripts, a.binaries, a.datas, [],
