@@ -2,11 +2,11 @@
 
 作者：Kaido-MSVC　授權：AGPL-3.0-or-later
 
-開源 Windows 桌面程式。所有轉換都在本機完成。
+開源 Windows 桌面程式，以單一 EXE 提供，所有轉換都在本機完成。另有 [PDF to JPG Qt 版](https://github.com/Kaido-MSVC/PDF-to-JPG-Qt/releases/tag/v1.1.0)，支援單份 PDF 中斷續傳，需要 Visual C++ x64 執行階段，專案程式碼採 MIT。
 
 ## 直接使用
 
-從 [v1.0.0 正式發布頁](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/tag/v1.0.0) 下載 `PDF-to-JPG.exe`，將檔案儲存在可寫入的位置後雙擊執行，不需要安裝 Python。
+從 [v1.0.0 正式發布頁](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/tag/v1.0.0) 下載 `PDF-to-JPG.exe`，將檔案儲存在可寫入的位置後雙擊執行，不需要安裝 Python。同一發行頁提供專案、PyMuPDF 與 MuPDF 三份對應原始碼附件，以及 [SHA256SUMS.txt](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/download/v1.0.0/SHA256SUMS.txt)。
 
 1. 按「加入 PDF」，選擇一份或多份 PDF。支援中文、日文檔名與路徑。
 2. 選擇輸出目錄、150 / 200 / 300 / 600 DPI，以及 1–100 的 JPG 品質。
