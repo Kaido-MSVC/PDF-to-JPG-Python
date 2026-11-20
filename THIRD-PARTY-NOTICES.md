@@ -18,7 +18,7 @@ PDF to JPG 由 Kaido-MSVC 以 GNU AGPL-3.0-or-later 釋出（見 `LICENSE`）。
 | psutil | 7.2.2 | BSD-3-Clause | `licenses\psutil-7.2.2\LICENSE` | https://github.com/giampaolo/psutil |
 | PyYAML | 6.0.3 | MIT | `licenses\PyYAML-6.0.3\LICENSE` | https://github.com/yaml/pyyaml |
 | Python（含 OpenSSL、libffi、bzip2、zlib 等內附函式庫及 MSVC 執行階段條款） | 3.13.17 | PSF License 及檔內所列各授權 | `licenses\Python-3.13.17\LICENSE.txt` | https://www.python.org/ |
-| Microsoft Visual C++ 執行階段（`VCRUNTIME140.dll`、`VCRUNTIME140_1.dll` 隨 Python；`MSVCP140.dll` 供 PyMuPDF 使用） | 14.x；`MSVCP140.dll` 為 14.51.36231 | Microsoft 專有軟體，屬 Microsoft Distributable Code，**不適用 AGPL**；接收者條款見下節 | 下節；`licenses\Python-3.13.17\LICENSE.txt` 的 “Additional Conditions for this Windows binary build” | https://learn.microsoft.com/cpp/windows/redistributing-visual-cpp-files |
+| Microsoft Visual C++ 執行階段（`VCRUNTIME140.dll`、`VCRUNTIME140_1.dll` 隨 Python；`MSVCP140.dll` 供 PyMuPDF 使用） | 14.x；`MSVCP140.dll` 為 14.52.37029.0 | Microsoft 專有軟體，屬 Microsoft Distributable Code，**不適用 AGPL**；接收者條款見下節 | 下節；`licenses\Python-3.13.17\LICENSE.txt` 的 “Additional Conditions for this Windows binary build” | https://learn.microsoft.com/cpp/windows/redistributing-visual-cpp-files |
 | Tcl/Tk | 8.6 | Tcl/Tk License（BSD 類） | `licenses\Tcl-Tk-8.6\license.terms` | https://www.tcl-lang.org/ |
 | PyInstaller bootloader | 6.22.3 | GPL-2.0-or-later，附 bootloader 例外 | `licenses\PyInstaller-6.22.3\COPYING.txt` | https://pyinstaller.org/ |
 
@@ -64,7 +64,7 @@ curl、freeglut、OpenSSL 未編入，故未列出。
 ## Microsoft Visual C++ 執行階段使用條款
 
 EXE 內含的 `MSVCP140.dll` 取自 Microsoft Visual Studio Community 2026（穩定通道）的
-`VC\Redist\MSVC\14.51.36231\x64\Microsoft.VC145.CRT`，未經修改，依
+`VC\Redist\MSVC\14.52.37025\x64\Microsoft.VC145.CRT`，未經修改，依
 Microsoft Software License Terms for Visual Studio Community 2026 第 5 節 “DISTRIBUTABLE CODE”
 及其 Distributable List（https://aka.ms/vs/18/redistribution）隨本程式散布。
 `VCRUNTIME140.dll`、`VCRUNTIME140_1.dll` 隨 Python 3.13 官方 Windows 版附帶，同屬 Microsoft Distributable Code。

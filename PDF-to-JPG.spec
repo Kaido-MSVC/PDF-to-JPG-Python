@@ -37,8 +37,8 @@ a.binaries = [b for b in a.binaries
 # it from the stable (non-preview) VS 2026 Redist folder instead of the
 # System32 copy PyInstaller finds. Pinned to version and SHA-256.
 import subprocess
-MSVC_REDIST_VERSION = '14.51.36231'
-MSVCP140_SHA256 = '7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca'
+MSVC_REDIST_VERSION = '14.52.37025'
+MSVCP140_SHA256 = '59d325227321d52b9a523ea401ce6787a5d59f78229a0ff3a6f124e5d3445685'
 
 
 def vs_redist_msvcp140():

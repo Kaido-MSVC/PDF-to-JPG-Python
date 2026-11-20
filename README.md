@@ -53,7 +53,7 @@ py -3.13 -m venv .venv
 .venv\Scripts\python.exe verify.py
 ```
 
-`build.ps1` 預設使用 `.venv`。從 Git 建置時，工作樹須維持乾淨。腳本核對 Python 與鎖定套件版本，執行單元測試，使用每次新建的 PyInstaller 工作目錄與快取，產出 EXE 及記錄 Git commit 與 EXE SHA-256 的 `BUILD-INFO.json`。原始碼 ZIP 解壓後也可重建 EXE，此時建置紀錄的 commit 欄位為空。圖示取自專案資源。建置需要 Visual Studio 2026（含「使用 C++ 的桌面開發」工作負載），`MSVCP140.dll` 取自 `VC\Redist\MSVC\14.51.36231\x64\Microsoft.VC145.CRT`，版本與 SHA-256 固定在 `PDF-to-JPG.spec`。建置工作目錄與單元測試紀錄存於 `work`，成品預設在 `dist`。
+`build.ps1` 預設使用 `.venv`。從 Git 建置時，工作樹須維持乾淨。腳本核對 Python 與鎖定套件版本，執行單元測試，使用每次新建的 PyInstaller 工作目錄與快取，產出 EXE 及記錄 Git commit 與 EXE SHA-256 的 `BUILD-INFO.json`。原始碼 ZIP 解壓後也可重建 EXE，此時建置紀錄的 commit 欄位為空。圖示取自專案資源。建置需要 Visual Studio 2026（含「使用 C++ 的桌面開發」工作負載），`MSVCP140.dll` 取自 `VC\Redist\MSVC\14.52.37025\x64\Microsoft.VC145.CRT`，目錄版本與 SHA-256 固定在 `PDF-to-JPG.spec`。建置工作目錄與單元測試紀錄存於 `work`，成品預設在 `dist`。
 
 `requirements.txt` 記錄直接相依套件，`requirements-lock.txt` 鎖定完整環境。PyMuPDF 2.1 連帶安裝的 onnxruntime、layout 與 LLM 套件會在封裝時排除。
 
