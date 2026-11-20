@@ -2,11 +2,11 @@
 
 作者：Kaido-MSVC　授權：AGPL-3.0-or-later
 
-自用 Windows 桌面程式。所有轉換都在本機完成。
+開源 Windows 桌面程式，以單一 EXE 提供，所有轉換都在本機完成。另有 PDF to JPG Qt 版，支援單份 PDF 中斷續傳，需要 Visual C++ x64 執行階段，專案程式碼採 MIT。 [PDF to JPG Qt 版](https://github.com/Kaido-MSVC/PDF-to-JPG-Qt/releases/tag/v1.1.0)
 
 ## 直接使用
 
-雙擊 `dist\PDF-to-JPG.exe`。
+從 v1.0.1 發行頁下載 `PDF-to-JPG.exe`，將檔案儲存在可寫入的位置後雙擊執行。執行時無須安裝 Python。發行頁同時提供三份對應原始碼附件、建置紀錄與 SHA-256 清單。 [v1.0.1 發行頁](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/tag/v1.0.1) · [SHA256SUMS.txt](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/download/v1.0.1/SHA256SUMS.txt)
 
 1. 按「加入 PDF」，選擇一份或多份 PDF。支援含中文或日文的檔名與路徑。
 2. 選擇輸出目錄、150 / 200 / 300 / 600 DPI，以及 1–100 的 JPG 品質。
@@ -70,7 +70,7 @@ py -3.13 -m venv .venv
 - `collect_licenses.py`、`licenses`：第三方授權全文，會內嵌於 EXE。Python 套件的授權由腳本從建置環境複製。MuPDF 1.28.6 的授權來源見 `licenses\MuPDF-1.28.6\PROVENANCE.md`。
 - `make_source_zip.ps1`：產生對應原始碼包、驗證上游 AGPL 原始碼包並輸出 `SHA256SUMS.txt`。
 
-封裝收集 CustomTkinter 的主題及字型、MuPDF DLL，排除本功能未使用的選用 layout / LLM 模組。驗證已在這台 Windows 11 x64 完成；尚未在另一台全新 Windows 或其他 Windows 版本測試。
+封裝收集 CustomTkinter 的主題及字型、MuPDF DLL，排除本功能未使用的選用 layout / LLM 模組。驗證已在 Windows 11 25H2 x64 完成。可攜版以移除 Python 的子程序 PATH 驗證，尚未在另一台乾淨 Windows 或其他 Windows 版本測試。
 
 ## API 依據
 
