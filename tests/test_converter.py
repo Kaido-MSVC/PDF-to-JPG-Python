@@ -88,6 +88,41 @@ class ConversionTests(unittest.TestCase):
         result = self.convert([bad, self.root / 'missing.pdf', disguised, good])
         self.assertEqual((result.saved, result.failed, result.completed), (1, 3, 1))
 
+    def test_path_resolution_error_does_not_abort_batch(self):
+        bad = self.root / 'invalid.pdf'
+        good = pdf(self.root / 'normal.pdf', pages=1)
+        original_resolve = Path.resolve
+        events = []
+
+        def resolve(path, *args, **kwargs):
+            if path == bad:
+                raise PermissionError('無法存取來源路徑')
+            return original_resolve(path, *args, **kwargs)
+
+        with patch.object(type(bad), 'resolve', resolve):
+            result = self.convert([bad, good, good], emit=events.append)
+
+        self.assertEqual((result.saved, result.failed, result.completed), (1, 1, 1))
+        self.assertIn('invalid.pdf', result.errors[0])
+        self.assertEqual([event['done'] for event in events if event['type'] == 'file_done'],
+                         [1, 2, 3])
+
+    def test_unreadable_pdf_does_not_abort_batch(self):
+        bad = pdf(self.root / 'unreadable.pdf', pages=1)
+        good = pdf(self.root / 'normal.pdf', pages=1)
+        original_open = pymupdf.open
+
+        def open_document(filename):
+            if Path(filename) == bad:
+                raise PermissionError('拒絕讀取 PDF')
+            return original_open(filename)
+
+        with patch('converter.pymupdf.open', side_effect=open_document):
+            result = self.convert([bad, good])
+
+        self.assertEqual((result.saved, result.failed, result.completed), (1, 1, 1))
+        self.assertIn('unreadable.pdf', result.errors[0])
+
     def test_cancel_before_and_between_pages_preserves_completed(self):
         source = pdf(self.root / 'cancel.pdf', pages=5)
         self.cancel.set()

@@ -13,7 +13,7 @@ import customtkinter as ctk
 
 from converter import DPI_CHOICES, Settings, convert_batch
 
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 AUTHOR = 'Kaido-MSVC'
 LICENSE_NAME = 'GNU AGPL-3.0-or-later'
 BASE = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
@@ -23,7 +23,7 @@ HOME = Path(sys.executable).parent if getattr(sys, 'frozen', False) else Path(__
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title('PDF to JPG  •  v1.0')
+        self.title(f'PDF to JPG  •  v{VERSION}')
         self.geometry('1000x850')
         self.minsize(880, 790)
         self.iconbitmap(str(BASE / 'assets' / 'app.ico'))
@@ -188,7 +188,12 @@ class App(ctk.CTk):
 
     def add_paths(self, paths):
         for value in paths:
-            path = Path(value).resolve()
+            path = Path(value)
+            try:
+                path = path.resolve()
+            except (OSError, RuntimeError, ValueError):
+                # Let the worker report the individual path error and continue the batch.
+                pass
             if path.suffix.lower() == '.pdf' and path not in self.files:
                 self.files.append(path)
         self.refresh_files()
@@ -361,9 +366,10 @@ class App(ctk.CTk):
                  '取得本程式時，您有權一併取得對應的完整原始碼。散布者應在提供本 EXE 的同一位置'
                  '一併提供下列檔案：\n'
                  f'・PDF-to-JPG-{VERSION}-source.zip：本程式原始碼、資源、授權檔、建置腳本與鎖定版本清單\n'
-                 '・pymupdf-2.0.tar.gz：PyMuPDF 2.0 官方原始碼\n'
-                 '・mupdf-1.28.5-source.tar.gz：MuPDF 1.28.5 官方原始碼（含 thirdparty）\n'
-                 '・SHA256SUMS.txt：上列檔案與 EXE 的 SHA-256\n'
+                 '・pymupdf-2.1.tar.gz：PyMuPDF 2.1 官方原始碼\n'
+                 '・mupdf-1.28.6-source.tar.gz：MuPDF 1.28.6 官方原始碼（含 thirdparty）\n'
+                 '・BUILD-INFO.json：建置提交與 EXE 的 SHA-256\n'
+                 '・SHA256SUMS.txt：封裝檔案的 SHA-256\n'
                  '若未一併取得，請向提供 EXE 給您的散布者索取。\n\n'
                  '本程式內含 PyMuPDF / MuPDF（AGPL-3.0）、Pillow、CustomTkinter（含 Roboto 字型）、'
                  'darkdetect、NumPy、packaging、psutil、PyYAML、Python、Tcl/Tk 與 '

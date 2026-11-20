@@ -60,6 +60,8 @@ def new_folder(parent: Path, name: str) -> Path:
 
 
 def save_page(page, target: Path, settings: Settings, cancel: threading.Event) -> bool:
+    if cancel.is_set():
+        return False
     rect = page.rect
     width = math.ceil(rect.width * settings.dpi / 72)
     height = math.ceil(rect.height * settings.dpi / 72)
@@ -70,8 +72,8 @@ def save_page(page, target: Path, settings: Settings, cancel: threading.Event) -
     pixmap = page.get_pixmap(dpi=settings.dpi, colorspace=pymupdf.csRGB, alpha=False)
     if cancel.is_set():
         return False
-    # Pillow explicitly embeds DPI and writes through Python's Unicode path support.
-    with Image.frombytes('RGB', (pixmap.width, pixmap.height), pixmap.samples) as image:
+    # Pillow copies the RGB data into its own image without a second Python bytes buffer.
+    with Image.frombytes('RGB', (pixmap.width, pixmap.height), pixmap.samples_mv) as image:
         del pixmap
         if cancel.is_set():
             return False
@@ -94,13 +96,22 @@ def convert_batch(paths, settings: Settings, cancel: threading.Event,
     settings.validate()
     result = Result()
     settings.output.mkdir(parents=True, exist_ok=True)
-    paths = list(dict.fromkeys(Path(p).resolve() for p in paths))
-    for file_index, source in enumerate(paths):
+    paths = list(paths)
+    seen: set[Path] = set()
+    for file_index, value in enumerate(paths):
         if cancel.is_set():
             break
-        emit(dict(type='file', name=str(source), index=file_index + 1, total=len(paths)))
+        source = None
         folder = None
         try:
+            source = Path(value)
+            source = source.resolve()
+            if source in seen:
+                continue
+            seen.add(source)
+            emit(dict(type='file', name=str(source), index=file_index + 1, total=len(paths)))
+            if cancel.is_set():
+                break
             if source.suffix.lower() != '.pdf':
                 raise ValueError('僅接受 PDF 檔案。')
             with pymupdf.open(str(source)) as document:
@@ -147,7 +158,7 @@ def convert_batch(paths, settings: Settings, cancel: threading.Event,
                         result.completed += 1
         except Exception as exc:
             result.failed += 1
-            message = f'{source.name}：{exc}'
+            message = f'{source.name if source else value}：{exc}'
             result.errors.append(message)
             emit(dict(type='error', message=message))
         finally:
@@ -157,7 +168,7 @@ def convert_batch(paths, settings: Settings, cancel: threading.Event,
                     result.folders.remove(str(folder))
                 except OSError:
                     pass
-        if not cancel.is_set():
-            emit(dict(type='file_done', done=file_index + 1, total=len(paths)))
+            if not cancel.is_set():
+                emit(dict(type='file_done', done=file_index + 1, total=len(paths)))
     result.cancelled = cancel.is_set()
     return result

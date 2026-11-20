@@ -8,7 +8,7 @@ PDF to JPG 由 Kaido-MSVC 以 GNU AGPL-3.0-or-later 釋出（見 `LICENSE`）。
 
 | 元件 | 版本 | 授權 | 完整授權文字 | 網址 |
 |---|---|---|---|---|
-| PyMuPDF / MuPDF | 2.0 / MuPDF 1.28.5 | GNU AGPL-3.0（或 Artifex 商業授權） | `licenses\PyMuPDF-2.0\COPYING`；AGPL 全文見 `LICENSE`；MuPDF 內建元件見下節 | https://github.com/pymupdf/PyMuPDF |
+| PyMuPDF / MuPDF | 2.1 / MuPDF 1.28.6 | GNU AGPL-3.0（或 Artifex 商業授權） | `licenses\PyMuPDF-2.1\COPYING`；AGPL 全文見 `LICENSE`；MuPDF 內建元件見下節 | https://github.com/pymupdf/PyMuPDF |
 | Pillow | 13.0.0 | MIT-CMU（HPND）；內含函式庫另列於同檔 | `licenses\Pillow-13.0.0\LICENSE` | https://github.com/python-pillow/Pillow |
 | CustomTkinter | 6.0.0 | MIT（套件附帶 LICENSE 為 MIT；套件資訊欄寫 CC0，以 LICENSE 檔為準） | `licenses\CustomTkinter-6.0.0\LICENSE` | https://github.com/TomSchimansky/CustomTkinter |
 | Roboto 字型（隨 CustomTkinter） | 2.137 | Apache-2.0（字型內嵌授權資訊） | `licenses\Roboto\LICENSE-Apache-2.0.txt` | https://fonts.google.com/specimen/Roboto |
@@ -22,14 +22,14 @@ PDF to JPG 由 Kaido-MSVC 以 GNU AGPL-3.0-or-later 釋出（見 `LICENSE`）。
 | Tcl/Tk | 8.6 | Tcl/Tk License（BSD 類） | `licenses\Tcl-Tk-8.6\license.terms` | https://www.tcl-lang.org/ |
 | PyInstaller bootloader | 6.22.3 | GPL-2.0-or-later，附 bootloader 例外 | `licenses\PyInstaller-6.22.3\COPYING.txt` | https://pyinstaller.org/ |
 
-## MuPDF 1.28.5 內建元件
+## MuPDF 1.28.6 內建元件
 
-PyMuPDF 2.0 的 `mupdfcpp64.dll` 依 MuPDF 1.28.5 的 Windows 建置專案編入下列函式庫與資源。
-授權全文由 MuPDF 1.28.5 官方原始碼及其固定的 submodule commit 原樣複製到
-`licenses\MuPDF-1.28.5\`，來源網址與 SHA-256 見該資料夾的 `PROVENANCE.md`。
+PyMuPDF 2.1 的 `mupdfcpp64.dll` 依 MuPDF 1.28.6 的 Windows 建置專案編入下列函式庫與資源。
+授權全文由 MuPDF 1.28.6 官方原始碼及其固定的 submodule commit 原樣複製到
+`licenses\MuPDF-1.28.6\`，來源網址與 SHA-256 見該資料夾的 `PROVENANCE.md`。
 curl、freeglut、OpenSSL 未編入，故未列出。
 
-| 元件 | 授權 | 完整授權文字（`licenses\MuPDF-1.28.5\` 下） |
+| 元件 | 授權 | 完整授權文字（`licenses\MuPDF-1.28.6\` 下） |
 |---|---|---|
 | MuPDF（含 sRGB / sGray ICC 描述檔） | AGPL-3.0-or-later，Copyright (c) 2006-2026 Artifex Software, Inc. | `COPYING`、`README` |
 | jbig2dec | AGPL-3.0-or-later | `thirdparty\jbig2dec\LICENSE`（全文同 `COPYING`） |
@@ -40,7 +40,7 @@ curl、freeglut、OpenSSL 未編入，故未列出。
 | OpenJPEG | BSD-2-Clause | `thirdparty\openjpeg\LICENSE` |
 | Little CMS（lcms2mt） | MIT | `thirdparty\lcms2\LICENSE` |
 | zlib | zlib License | `thirdparty\zlib\LICENSE` |
-| Brotli | MIT | `thirdparty\brotli\LICENSE` |
+| Brotli 1.2.1 | MIT | `thirdparty\brotli\LICENSE` |
 | MuJS | ISC | `thirdparty\mujs\COPYING` |
 | Gumbo | Apache-2.0 | `thirdparty\gumbo-parser\COPYING` |
 | cmark-gfm | BSD-2-Clause 等，見檔 | `thirdparty\cmark-gfm\COPYING` |
@@ -98,7 +98,7 @@ recipients to agree to these terms.
 | 檔案 | 內容 | 官方來源 |
 |---|---|---|
 | `PDF-to-JPG-1.0.0-source.zip` | 本程式原始碼、資源、授權檔、建置腳本與鎖定版本清單 | 本專案 |
-| `pymupdf-2.0.tar.gz` | PyMuPDF 2.0 原始碼（官方 sdist，未修改） | https://pypi.org/project/pymupdf/2.0/#files |
-| `mupdf-1.28.5-source.tar.gz` | MuPDF 1.28.5 及其 thirdparty 原始碼（官方原始碼包，未修改；PyMuPDF 2.0 建置時使用此檔） | https://github.com/ArtifexSoftware/mupdf-downloads/releases/tag/1.28.5 |
+| `pymupdf-2.1.tar.gz` | PyMuPDF 2.1 原始碼（官方 sdist，未修改） | https://pypi.org/project/pymupdf/2.1/#files |
+| `mupdf-1.28.6-source.tar.gz` | MuPDF 1.28.6 及其 thirdparty 原始碼（PyMuPDF 2.1 使用的官方原始碼包） | https://github.com/ArtifexSoftware/mupdf-downloads/releases/tag/1.28.6 |
 
 其他非 copyleft 第三方元件的原始碼可依 `requirements-lock.txt` 的版本由上表網址或 PyPI 取得。
