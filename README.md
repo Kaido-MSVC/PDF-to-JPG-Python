@@ -1,12 +1,24 @@
-# PDF to JPG v1.0.1
+# PDF to JPG
 
-作者：Kaido-MSVC　授權：AGPL-3.0-or-later
+**Windows PDF 轉 JPG 桌面工具（Python 版）**
 
-開源 Windows 桌面程式，以單一 EXE 提供，所有轉換都在本機完成。另有 PDF to JPG Qt 版，支援單份 PDF 中斷續傳，需要 Visual C++ x64 執行階段，專案程式碼採 MIT。 [PDF to JPG Qt 版](https://github.com/Kaido-MSVC/PDF-to-JPG-Qt/releases/tag/v1.1.0)
+作者：Kaido-MSVC　｜　授權：AGPL-3.0-or-later　｜　最新穩定版：[GitHub Releases](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/latest)
+
+開源 Windows 桌面程式，使用單一 EXE 即可在本機將 PDF 轉為 JPG；不需上傳文件，也不需額外安裝 Python。
+
+## 最新版本與安全更新
+
+**v1.0.1 — 安全更新（Security Update）**
+
+- 更新至官方 PyMuPDF 2.1 Windows x64 套件（MuPDF 1.28.6、內含 Brotli 1.2.1），修復已確認的 Brotli 漏洞 **CVE-2026-111497**。
+- 建議使用舊版的使用者更新至 v1.0.1，並以正式發行頁的 SHA-256 清單核對下載檔案。
+- **仍有已知限制**：MuPDF 簽章驗證相關的 CVE-2026-112036、FreeType 資源耗用風險 CVE-2026-95512，以及對不受控 PDF 尚未提供程序級時間與記憶體隔離。風險、目前功能可達性與後續更新條件詳見下方「安全更新與限制」。
+
+[下載最新穩定版](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/latest) · [v1.0.1 發行說明](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/tag/v1.0.1) · [SHA256SUMS.txt](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/download/v1.0.1/SHA256SUMS.txt)
 
 ## 直接使用
 
-從 v1.0.1 發行頁下載 `PDF-to-JPG.exe`，將檔案儲存在可寫入的位置後雙擊執行。執行時無須安裝 Python。發行頁同時提供三份對應原始碼附件、建置紀錄與 SHA-256 清單。 [v1.0.1 發行頁](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/tag/v1.0.1) · [SHA256SUMS.txt](https://github.com/Kaido-MSVC/PDF-to-JPG-Python/releases/download/v1.0.1/SHA256SUMS.txt)
+從 v1.0.1 正式發行頁下載 `PDF-to-JPG.exe`，將檔案儲存在可寫入的位置後雙擊執行。執行時無須安裝 Python。發行頁同時提供三份對應原始碼附件、建置紀錄與 SHA-256 清單。
 
 1. 按「加入 PDF」，選擇一份或多份 PDF。支援含中文或日文的檔名與路徑。
 2. 選擇輸出目錄、150 / 200 / 300 / 600 DPI，以及 1–100 的 JPG 品質。
